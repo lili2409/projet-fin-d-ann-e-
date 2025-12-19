@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Carte de vœux</title>
+
+<style>
+/* GLOBAL */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* CARTE */
+.card {
+    background: white;
+    width: 420px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: appear 1s ease;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes appear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+select {
+    padding: 8px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.signature {
+    margin-top: 25px;
+    font-style: italic;
+    color: #777;
+}
+
+/* NEIGE */
+.snow {
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    animation: fall linear infinite;
+    z-index: 1;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <select onchange="changerMessage(this.value)">
+        <option value="">🎓 Choisir un professeur</option>
+        <option value="cejm">CEJM</option>
+        <option value="cg">Culture Générale</option>
+        <option value="info">Informatique</option>
+        <option value="anglais">Anglais</option>
+        <option value="maths">Mathématiques</option>
+    </select>
+
+    <h1 id="titre">Meilleurs vœux</h1>
+    <p id="message">
+        Sélectionnez un professeur pour afficher un message personnalisé.
+    </p>
+
+    <div class="signature">— Vos élèves</div>
+</div>
+
+<script>
+/* MESSAGES PERSONNALISÉS */
+function changerMessage(prof) {
+    const titre = document.getElementById("titre");
+    const message = document.getElementById("message");
+
+    const messages = {
+        cejm: ["Bonne année – CEJM",
+            "Merci pour votre accompagnement et votre pédagogie. Nous vous souhaitons une année riche en réussites et en projets."],
+        cg: ["Bonne année – Culture Générale",
+            "Merci pour vos cours inspirants et votre passion. Excellente année à vous."],
+        info: ["Bonne année – Informatique",
+            "Merci pour votre patience et votre transmission du savoir. Que cette année soit sans bugs et pleine de succès."],
+        anglais: ["Happy New Year – English",
+            "Thank you for your dedication and support. We wish you a successful and joyful year."],
+        maths: ["Bonne année – Mathématiques",
+            "Merci pour votre rigueur et votre engagement. Une année positive à tous les niveaux !"]
+    };
+
+    if (messages[prof]) {
+        titre.textContent = messages[prof][0];
+        message.textContent = messages[prof][1];
+    }
+}
+
+/* NEIGE */
+for (let i = 0; i < 40; i++) {
+    const snow = document.createElement("div");
+    snow.className = "snow";
+    snow.textContent = "❄";
+    snow.style.left = Math.random() * 100 + "vw";
+    snow.style.animationDuration = (3 + Math.random() * 5) + "s";
+    snow.style.fontSize = (10 + Math.random() * 15) + "px";
+    document.body.appendChild(snow);
+}
+</script>
+
+</body>
+</html>
