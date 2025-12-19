@@ -42,6 +42,14 @@ select {
     border-radius: 8px;
 }
 
+/* Couleurs pour chaque option */
+option[value="cejm"] { background-color: #ffcccc; }
+option[value="cg"] { background-color: #ccffcc; }
+option[value="info"] { background-color: #ccccff; }
+option[value="anglais"] { background-color: #fff0b3; }
+option[value="maths"] { background-color: #ffd6ff; }
+option[value="avs"] { background-color: #b3ffff; }
+
 h1 {
     color: #2c3e50;
     margin-bottom: 10px;
@@ -73,6 +81,15 @@ p {
         transform: translateY(110vh);
     }
 }
+
+button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -86,6 +103,7 @@ p {
         <option value="info">Informatique</option>
         <option value="anglais">Anglais</option>
         <option value="maths">Mathématiques</option>
+        <option value="avs">AVS</option>
     </select>
 
     <h1 id="titre">Meilleurs vœux</h1>
@@ -94,7 +112,15 @@ p {
     </p>
 
     <div class="signature">— Vos élèves</div>
+
+    <button onclick="toggleMusic()">🎵 Musique</button>
 </div>
+
+<!-- AUDIO -->
+<audio id="musique" autoplay loop>
+    <source src="chanson_neige.mp3" type="audio/mpeg">
+    Votre navigateur ne supporte pas l’audio.
+</audio>
 
 <script>
 /* MESSAGES PERSONNALISÉS */
@@ -112,7 +138,9 @@ function changerMessage(prof) {
         anglais: ["Happy New Year – English",
             "Thank you for your dedication and support. We wish you a successful and joyful year."],
         maths: ["Bonne année – Mathématiques",
-            "Merci pour votre rigueur et votre engagement. Une année positive à tous les niveaux !"]
+            "Merci pour votre rigueur et votre engagement. Une année positive à tous les niveaux !"],
+        avs: ["Bonne année – AVS",
+            "Merci pour votre soutien et votre accompagnement au quotidien. Nous vous souhaitons une année pleine de bonheur et de réussite."]
     };
 
     if (messages[prof]) {
@@ -131,6 +159,24 @@ for (let i = 0; i < 40; i++) {
     snow.style.fontSize = (10 + Math.random() * 15) + "px";
     document.body.appendChild(snow);
 }
+
+/* MUSIQUE */
+function toggleMusic() {
+    const audio = document.getElementById("musique");
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+}
+
+// Essayer de lancer la musique automatiquement au chargement
+window.addEventListener('load', () => {
+    const audio = document.getElementById('musique');
+    audio.play().catch(() => {
+        console.log("Autoplay bloqué, utilisez le bouton pour démarrer la musique.");
+    });
+});
 </script>
 
 </body>
